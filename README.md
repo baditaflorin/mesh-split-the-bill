@@ -1,7 +1,7 @@
 # mesh-split-the-bill
 
 [![pages](https://img.shields.io/badge/live-baditaflorin.github.io%2Fmesh-split-the-bill-2ec27e)](https://baditaflorin.github.io/mesh-split-the-bill/)
-[![version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/baditaflorin/mesh-split-the-bill/blob/main/package.json)
+[![version](https://img.shields.io/badge/version-0.1.1-blue)](https://github.com/baditaflorin/mesh-split-the-bill/blob/main/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 > QR a menu, each phone claims items, totals reconcile via Yjs — no signup

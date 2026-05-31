@@ -18,7 +18,10 @@ export function Feature({ room, config }: Props) {
   );
   const [draftName, setDraftName] = useState("");
   const [draftPrice, setDraftPrice] = useState("");
-  const [, rerender] = useState(0);
+  // `tick` increments on every observed Yjs change so the derived `data`
+  // memo re-runs. Without it in the dep array, `data` froze on the initial
+  // empty snapshot and never reflected items/claims (even local ones).
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     if (name) localStorage.setItem(NAME_KEY(config.storagePrefix), name);
@@ -28,9 +31,12 @@ export function Feature({ room, config }: Props) {
     if (!room) return;
     const items = room.doc.getArray<Item>("items");
     const claims = room.doc.getMap<Y.Map<boolean>>("claims");
-    const onChange = () => rerender((n) => n + 1);
+    const onChange = () => setTick((n) => n + 1);
     items.observe(onChange);
     claims.observeDeep(onChange);
+    // Re-derive once on (re)subscribe so already-present state (e.g. items a
+    // peer pushed before this observer attached) renders immediately.
+    onChange();
     return () => {
       items.unobserve(onChange);
       claims.unobserveDeep(onChange);
@@ -50,7 +56,9 @@ export function Feature({ room, config }: Props) {
       claims[itemId] = peers;
     });
     return { items, claims };
-  }, [room]);
+    // `tick` is a load-bearing dep: it forces re-derivation on every observed
+    // Yjs change so cross-peer item/claim updates actually surface in the UI.
+  }, [room, tick]);
 
   if (!room) {
     return (
