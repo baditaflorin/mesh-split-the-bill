@@ -42,7 +42,12 @@ test("items + claims + totals reconcile across the mesh", async ({ browser, base
 
     // --- Peer B claims the Beer ---
     const beerOnB = b.locator(".bill-item", { hasText: "Beer" });
-    await beerOnB.locator(".bill-claim").click();
+    const beerClaimOnB = beerOnB.locator(".bill-claim");
+    // Accessible state starts unclaimed and flips on claim — proves the toggle
+    // button exposes its pressed state (a11y + deterministic test handle).
+    await expect(beerClaimOnB).toHaveAttribute("aria-pressed", "false");
+    await beerClaimOnB.click();
+    await expect(beerClaimOnB).toHaveAttribute("aria-pressed", "true");
 
     // Bob's claim must appear on peer A (the OPPOSITE peer), keyed by name,
     // with the reconciled per-share price (one claimant -> full price).

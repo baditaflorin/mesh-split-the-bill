@@ -4,7 +4,9 @@
 [![version](https://img.shields.io/badge/version-0.1.1-blue)](https://github.com/baditaflorin/mesh-split-the-bill/blob/main/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
-> QR a menu, each phone claims items, totals reconcile via Yjs — no signup
+> Share one room, add the items, each phone taps what it had — totals reconcile via Yjs. No signup.
+
+**Try it:** open the live URL in two tabs (or share the room via the 📡 QR). Type the items you ordered, then in each tab **tap an item to claim your share**. Items shared by several people split evenly, and every phone sees its own "you owe" total update live.
 
 Live: **https://baditaflorin.github.io/mesh-split-the-bill/**
 

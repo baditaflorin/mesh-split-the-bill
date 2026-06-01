@@ -144,6 +144,12 @@ export function Feature({ room, config }: Props) {
         <button type="submit">add</button>
       </form>
 
+      {data.items.length > 0 && (
+        <p className="bill-hint">
+          Tap an item to claim your share — anything you split is divided evenly.
+        </p>
+      )}
+
       <ul className="bill-list">
         {data.items.map((it) => {
           const claimants = data.claims[it.id] ?? [];
@@ -151,7 +157,13 @@ export function Feature({ room, config }: Props) {
           const share = claimants.length > 0 ? it.price / claimants.length : it.price;
           return (
             <li key={it.id} className={`bill-item ${mine ? "is-mine" : ""}`}>
-              <button type="button" className="bill-claim" onClick={() => toggleClaim(it.id)}>
+              <button
+                type="button"
+                className="bill-claim"
+                aria-label={`${mine ? "unclaim" : "claim"} ${it.name}`}
+                aria-pressed={mine}
+                onClick={() => toggleClaim(it.id)}
+              >
                 <span className="bill-item-name">{it.name}</span>
                 <span className="bill-item-price">{fmt(it.price)}</span>
               </button>

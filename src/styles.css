@@ -85,6 +85,13 @@ body,
   cursor: pointer;
 }
 
+.bill-hint {
+  margin: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--mesh-muted);
+}
+
 .bill-list {
   list-style: none;
   padding: 0;
